@@ -1,0 +1,9 @@
+{
+    "pages": {
+        "main": {
+            "title": "Главная",
+            "header": "Русская версия!"
+        }
+    },
+    "description": "Вы создали проект, используя \n<a target=\"_blank\" href=\"{viteRef}\">Vite</a> +\n<a target=\"_blank\" href=\"{vueRef}\">Vue 3</a>."
+}

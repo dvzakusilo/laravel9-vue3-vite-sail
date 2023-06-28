@@ -10,6 +10,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "spatie/browsershot": "^3.57",
+        "spatie/crawler": "^7.1",
       "ext-pdo": "*"
     },
     "require-dev": {

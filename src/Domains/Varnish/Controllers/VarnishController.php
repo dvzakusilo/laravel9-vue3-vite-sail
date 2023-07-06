@@ -5,6 +5,7 @@ namespace Domains\Varnish\Controllers;
 use App\Http\Controllers\Controller;
 
 use Domains\Varnish\Models\VarnishModel;
+use Domains\Varnish\Models\VarnishSitemapModel;
 use Domains\Varnish\Observers\VarnishCrawlerObserver;
 use Exception;
 use Generator;
@@ -34,13 +35,17 @@ class VarnishController extends Controller
     /**
      * Scan sitemap and go to links.
      *
-     * @param string $link
+     * @param string $link Sitemap xml file.
+     * @param string $clearMask Rescan urls by mask ['/catalog/'].
+     * @param array $replaceInUrl String replace path in urls
      * @return int[]
      * @throws GuzzleException
      * @throws Exception
      */
     #[ArrayShape(['status' => "int"])] public static function scanSitemap(
-        string $link = 'https://www.kant.ru/sitemap.xml'
+        string $link = 'https://www.kant.ru/sitemap.xml',
+        string $clearMask = '',
+        array $replaceInUrl = []
     ) : array
     {
         set_time_limit(6000);
@@ -54,29 +59,37 @@ class VarnishController extends Controller
             $result[] = new \SimpleXMLElement($client->get((string) $item->loc)->getBody()->getContents());
         }
 
+        VarnishSitemapModel::query()->truncate();
 
 
-        $arLinks = [];
         foreach ($result as $item) {
+            $arLinks = [];
             foreach ($item->url as $url) {
                 /** { @internal Relocate to another domain. } */
-                $uri = str_replace('www.kant.ru', 'spa.kant.ru', (string) $url->loc);
                 $uri = (string) $url->loc;
+                if(!empty($replaceInUrl)) $uri = str_replace($replaceInUrl[0], $replaceInUrl[1], $uri);
+
                 if(!empty($uri)) {
-                    $arLinks[] = $uri;
+                    $arLinks[] = ['url' => $uri, 'status' => 200];
                 }
             }
+
+            VarnishSitemapModel::insert($arLinks);
         }
 
+        $clearMask='/product/3391004';
+
+        /** Clear by mask */
+        if(!empty($clearMask)) VarnishModel::where('url', 'like', '%' .$clearMask.'%')->delete();
+
         /**  Select crawled values  */
-        $result = DB::select("SELECT url
-            FROM varnish
-            WHERE url IN ( '" . implode( "', '" , $arLinks ) . "' )");
-        $arVisitedLinks = array_map(function ($value) {
+        $result = DB::select("
+            SELECT * FROM varnish_sitemap
+            WHERE url NOT IN (SELECT url FROM varnish)"
+        );
+        $arLinks = array_map(function ($value) {
             return $value->url;
         }, $result);
-
-        $arLinks = array_diff($arLinks, $arVisitedLinks);
 
         /**  @todo Replace cookies to params */
         $cookieJar = CookieJar::fromArray([

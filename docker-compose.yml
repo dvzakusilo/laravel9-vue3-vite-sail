@@ -1,6 +1,6 @@
 version: '3'
 services:
-    laravel.test:
+    laravel:
         build:
             context: ./vendor/laravel/sail/runtimes/8.2
             dockerfile: Dockerfile
@@ -12,6 +12,7 @@ services:
         ports:
             - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+#        entrypoint: ./entrypoint.sh
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1

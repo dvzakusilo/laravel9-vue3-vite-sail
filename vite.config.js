@@ -6,6 +6,7 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 
 import { fileURLToPath} from "node:url";
 import { resolve, dirname } from "node:path";
+import tailwindcss from "tailwindcss";
 
 
 export default ({ mode }) => {
@@ -14,6 +15,7 @@ export default ({ mode }) => {
     return defineConfig({
         plugins: [
             vue(),
+            tailwindcss(),
             VueI18nPlugin({
                 include: resolve(dirname(fileURLToPath(import.meta.url)), './resources/js/'+process.env.VITE_APP_JS_VERSION+'/locales/**'),
                 strictMessage: false

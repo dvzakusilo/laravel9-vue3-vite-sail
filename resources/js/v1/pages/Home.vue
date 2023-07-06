@@ -5,10 +5,6 @@
     </div>
 </template>
 
-<script setup>
-    const ru = "Русская версия";
-    const en = "English version";
-</script>
 
 <style scoped>
     h1 {

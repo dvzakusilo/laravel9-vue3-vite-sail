@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "891e31db9d0cd5547afc39050323af00",
+    "content-hash": "2955dd4412d2edff05b621b73b8c7159",
     "packages": [
         {
             "name": "brick/math",
@@ -3257,16 +3257,16 @@
         },
         {
             "name": "spatie/browsershot",
-            "version": "3.57.8",
+            "version": "3.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/browsershot.git",
-                "reference": "2d46fd9f51548da104466a7f60579c604d195a21"
+                "reference": "aab060f4d7dddc8eda034481691b3b087f438a2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/browsershot/zipball/2d46fd9f51548da104466a7f60579c604d195a21",
-                "reference": "2d46fd9f51548da104466a7f60579c604d195a21",
+                "url": "https://api.github.com/repos/spatie/browsershot/zipball/aab060f4d7dddc8eda034481691b3b087f438a2e",
+                "reference": "aab060f4d7dddc8eda034481691b3b087f438a2e",
                 "shasum": ""
             },
             "require": {
@@ -3311,7 +3311,7 @@
                 "webpage"
             ],
             "support": {
-                "source": "https://github.com/spatie/browsershot/tree/3.57.8"
+                "source": "https://github.com/spatie/browsershot/tree/3.58.0"
             },
             "funding": [
                 {
@@ -3319,7 +3319,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T07:16:58+00:00"
+            "time": "2023-06-30T08:52:18+00:00"
         },
         {
             "name": "spatie/crawler",

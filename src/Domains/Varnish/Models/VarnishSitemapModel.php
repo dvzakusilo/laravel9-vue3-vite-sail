@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Save links from sitemap.
- *
- * @package Domains\Varnish\Models
+ * @package
  */
 class VarnishSitemapModel extends Model
 {
     use HasFactory;
+
     /**
      * @var string $table Таблица БД, ассоциированная с моделью.
      */
@@ -24,4 +23,5 @@ class VarnishSitemapModel extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ['url', 'status', 'path', 'content'];
+
 }

@@ -77,7 +77,6 @@ class VarnishController extends Controller
             VarnishSitemapModel::insert($arLinks);
         }
 
-        $clearMask='/product/3391004';
 
         /** Clear by mask */
         if(!empty($clearMask)) VarnishModel::where('url', 'like', '%' .$clearMask.'%')->delete();
